@@ -1,8 +1,6 @@
 import React from "react";
 import {useState} from "react";
 import styled from "styled-components";
-import TodoList from "./TodoList";
-import Weather from "./Weather";
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
@@ -46,19 +44,15 @@ const Border = styled.div`
   `
 
 export default function MakeList() {
-  const [content, setContent] = useState('')
-  const ListChange = (e, content) => {
-    setContent(content)
-  }
 
   return (
     <Border style={{display: "flex"}}>
       <ListBox>
       <Link to="/todolist">
-        <List isSelected = {content === 'todo_list'} onClick={(e)=>ListChange(e, 'todo_list')}>Todo List</List>
+        <List>Todo List</List>
       </Link>
       <Link to="/weather">
-        <List isSelected = {content === 'weather'} onClick={(e)=>ListChange(e, 'weather')}>Weather</List>
+        <List>Weather</List>
       </Link>
       </ListBox>
       <ContentBox>
