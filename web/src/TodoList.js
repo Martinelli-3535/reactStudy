@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {v4 as uuid} from 'uuid'
 
 const TodoLists = [
@@ -96,10 +96,17 @@ export default function TodoList() {
         e.target[0].value = ''
     }
 
-    const handleTodoChecked = (e,id)=>{
+    const handleTodoChecked = (e, id)=>{
         setTodos(todos.map(item => item.id === id ? {...item, complete: !item.complete} :item ))
+<<<<<<< HEAD
         console.log(todos);
+=======
+>>>>>>> 2264789ade731eaff24c8ccfa0ac39942713b81d
     }
+
+    useEffect(()=>{
+        console.log(todos)
+    },[todos])
 
     return (
         <div>
@@ -110,9 +117,8 @@ export default function TodoList() {
             </form>
             <div>
                 {todos.map((element) =>
-                    <Todo>
-                        <InputBtn type='checkbox' checked={element.complete} onClick={(e)=>handleTodoChecked(e, element.id)
-                        }/>
+                    <Todo key={element.id}>
+                        <InputBtn type='checkbox' checked={element.complete} onChange={(e)=>handleTodoChecked(e, element.id)}/>
                         {element.todo}
                         <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
                     </Todo>
@@ -121,3 +127,10 @@ export default function TodoList() {
         </div>
     );
 }
+
+/* {TodoLists.map((element) =>
+        <Todo>
+          <InputBtn 
+            type='checkbox' /> {element.todo}
+        </Todo>
+      )} */
