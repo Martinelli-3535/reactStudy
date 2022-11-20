@@ -53,7 +53,7 @@ export default function MakeList() {
         <Border style={{display: "flex"}}>
             <ListBox>
                 {menuList.map((item)=>(
-                    <Link to={item.url}>
+                    <Link to={item.url} key={item.url}>
                         <List>{item.text}</List>
                     </Link>
                 ))}
