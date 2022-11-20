@@ -63,7 +63,7 @@ const InputBtn = styled.input`
 
 const DeleteBtn = styled.button`
     position: absolute;
-    right: 2em;
+    right: 5.5em;
     color: #e66;
     font-size: 20px;
     font-family: "Material Icons";
@@ -98,7 +98,7 @@ export default function TodoList() {
 
     const handleTodoChecked = (e,id)=>{
         setTodos(todos.map(item => item.id === id ? {...item, complete: !item.complete} :item ))
-        console.log(todos)
+        console.log(todos);
     }
 
     return (
