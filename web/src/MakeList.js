@@ -1,8 +1,8 @@
 import React from "react";
 import {useState} from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 
 const ListBox = styled.div`
   padding-top: 8em;
@@ -16,7 +16,7 @@ const List = styled.div`
   font-weight: 500;
   font-size: 22px;
   line-height: 26px;
-  margin: 0px 23px 17px; 
+  margin: 0px 23px 17px;
   color: #525252;
 
   ${props => props.isSelected && `
@@ -41,23 +41,26 @@ const Border = styled.div`
   background: #FFFFFF;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  `
+`
 
 export default function MakeList() {
 
-  return (
-    <Border style={{display: "flex"}}>
-      <ListBox>
-      <Link to="/todolist">
-        <List>Todo List</List>
-      </Link>
-      <Link to="/weather">
-        <List>Weather</List>
-      </Link>
-      </ListBox>
-      <ContentBox>
-        <Outlet/>
-      </ContentBox>
-    </Border>
-  );
+    const menuList = [
+        {text: 'Todo List', url: '/todolist'},
+        {text: 'Weather', url: '/weather'}
+    ]
+    return (
+        <Border style={{display: "flex"}}>
+            <ListBox>
+                {menuList.map((item)=>(
+                    <Link to={item.url}>
+                        <List>{item.text}</List>
+                    </Link>
+                ))}
+            </ListBox>
+            <ContentBox>
+                <Outlet/>
+            </ContentBox>
+        </Border>
+    );
 }
