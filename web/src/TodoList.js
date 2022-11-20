@@ -71,6 +71,8 @@ const DeleteBtn = styled.button`
     background-color:#FFFFFF;
 `
 
+
+
 export default function TodoList() {
 
     const [todos, setTodos] = useState(TodoLists);
@@ -94,9 +96,9 @@ export default function TodoList() {
         e.target[0].value = ''
     }
 
-    const handleTodoChecked = (e, id)=>{
-        console.log(id)
+    const handleTodoChecked = (e,id)=>{
         setTodos(todos.map(item => item.id === id ? {...item, complete: !item.complete} :item ))
+        console.log(todos)
     }
 
     return (
@@ -109,7 +111,8 @@ export default function TodoList() {
             <div>
                 {todos.map((element) =>
                     <Todo>
-                        <InputBtn type='checkbox' checked={element.complete} onClick={(e)=>handleTodoChecked(e, element.id)}/>
+                        <InputBtn type='checkbox' checked={element.complete} onClick={(e)=>handleTodoChecked(e, element.id)
+                        }/>
                         {element.todo}
                         <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
                     </Todo>
@@ -118,10 +121,3 @@ export default function TodoList() {
         </div>
     );
 }
-
-/* {TodoLists.map((element) =>
-        <Todo>
-          <InputBtn 
-            type='checkbox' /> {element.todo}
-        </Todo>
-      )} */
