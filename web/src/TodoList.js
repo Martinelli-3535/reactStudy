@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {v4 as uuid} from 'uuid'
 
 const TodoLists = [
@@ -71,7 +71,15 @@ const DeleteBtn = styled.button`
     background-color:#FFFFFF;
 `
 
-
+const ModifyBtn = styled.button`
+    position: absolute;
+    right: 7em;
+    color: #e66;
+    font-size: 20px;
+    font-family: "Material Icons";
+    border : none;
+    background-color:#FFFFFF;
+`
 
 export default function TodoList() {
 
@@ -98,15 +106,9 @@ export default function TodoList() {
 
     const handleTodoChecked = (e, id)=>{
         setTodos(todos.map(item => item.id === id ? {...item, complete: !item.complete} :item ))
-<<<<<<< HEAD
-        console.log(todos);
-=======
->>>>>>> 2264789ade731eaff24c8ccfa0ac39942713b81d
     }
 
-    useEffect(()=>{
-        console.log(todos)
-    },[todos])
+    
 
     return (
         <div>
@@ -118,8 +120,12 @@ export default function TodoList() {
             <div>
                 {todos.map((element) =>
                     <Todo key={element.id}>
-                        <InputBtn type='checkbox' checked={element.complete} onChange={(e)=>handleTodoChecked(e, element.id)}/>
+                        <InputBtn type='checkbox' checked={element.complete} onChange={(e)=> handleTodoChecked(e, element.id)
+                        }/> 
+                        <div style={{textDecoration: element.complete? "line-through" : null}}>
                         {element.todo}
+                        </div>
+                        <ModifyBtn>🖊</ModifyBtn>
                         <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
                     </Todo>
                 )}
@@ -127,10 +133,3 @@ export default function TodoList() {
         </div>
     );
 }
-
-/* {TodoLists.map((element) =>
-        <Todo>
-          <InputBtn 
-            type='checkbox' /> {element.todo}
-        </Todo>
-      )} */
