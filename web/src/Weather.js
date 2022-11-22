@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import React, { useState, useEffect} from "react";
+import { getUltraSrtNcst } from "./api/Weather";
 
 export default function Weather() {
   
@@ -77,8 +79,22 @@ export default function Weather() {
 
     color: #000000;
   `
+  const [state,setState] = useState(' ');
+
+  useEffect(()=>{
+    getUltraSrtNcst()
+        .then(res =>{
+            const items = res.response.body.items.item
+            const currentTemperature = items.filter(item => item.category === 'T1H')[0].obsrValue
+            setState(currentTemperature)
+        })
+        .catch(e => console.log(e))
+},[])
 
   return (
+
+    
+
     <div>
       <Title>Weather</Title>
       <Songdo>송도동</Songdo>
@@ -87,7 +103,7 @@ export default function Weather() {
         <Sunny>☀</Sunny>
         <Temperature>10<span style={{color: "#181818"}}>˚</span></Temperature>
         <Info><InfoSub pos="left">최고기온/최저기온</InfoSub><InfoSub pos="right">13˚C / 10˚C</InfoSub></Info>
-        <Info><InfoSub pos="left">체감온도</InfoSub><InfoSub pos="right">7˚C</InfoSub></Info>
+        <Info><InfoSub pos="left">{state}</InfoSub><InfoSub pos="right">7˚C</InfoSub></Info>
       </TempBox>
     </div>
   )
