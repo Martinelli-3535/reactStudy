@@ -1,4 +1,4 @@
-import instance, {SERVICE_KEY} from '../utils/AxiosInstance';
+import instance, {SERVICE_KEY} from '../utils/axiosInstance';
 
 export const getUltraSrtNcst =
     async (param = {

@@ -79,7 +79,8 @@ export default function Weather() {
 
     color: #000000;
   `
-  const [state,setState] = useState(' ');
+  const [ state , setState ] = useState('');
+
 
   useEffect(()=>{
     getUltraSrtNcst()
@@ -87,13 +88,12 @@ export default function Weather() {
             const items = res.response.body.items.item
             const currentTemperature = items.filter(item => item.category === 'T1H')[0].obsrValue
             setState(currentTemperature)
+            console.log(currentTemperature)
         })
         .catch(e => console.log(e))
 },[])
 
   return (
-
-    
 
     <div>
       <Title>Weather</Title>
