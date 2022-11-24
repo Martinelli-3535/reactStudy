@@ -95,10 +95,8 @@ export default function Weather() {
 
         })
         .catch(e => console.log(e))
-},[])
 
-  useEffect(() => {  
-    getVilageFcst()
+        getVilageFcst()
       .then(res =>{
           const items = res.response.body.items.item
           const maxTemp = items.filter(item => item.category === 'TMX')[0].fcstValue
@@ -108,7 +106,8 @@ export default function Weather() {
           
         })
         .catch(e => console.log(e))
-  },[])
+},[])
+
 
   return (
 
