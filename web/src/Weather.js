@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import React, { useState, useEffect} from "react";
-import { getUltraSrtNcst } from "./api/Weather";
+import { getUltraSrtNcst , getVilageFcst } from "./api/Weather";
 
 export default function Weather() {
   
@@ -76,12 +76,12 @@ export default function Weather() {
     font-weight: 700;
     font-size: 31px;
     line-height: 37px;
-
     color: #000000;
   `
-  const [ state , setState ] = useState('');
+  const [state,setState] = useState('');
   const [temp, setTemp] = useState('');
-
+  const [maxT, setMaxT] = useState('');
+  const [minT, setMinT] = useState('');
 
   useEffect(()=>{
     getUltraSrtNcst()
@@ -97,6 +97,19 @@ export default function Weather() {
         .catch(e => console.log(e))
 },[])
 
+  useEffect(() => {  
+    getVilageFcst()
+      .then(res =>{
+          const items = res.response.body.items.item
+          const maxTemp = items.filter(item => item.category === 'TMX')[0].fcstValue
+          const minTemp = items.filter(item => item.category === 'TMN')[0].fcstValue
+          setMaxT(maxTemp)
+          setMinT(minTemp)
+          
+        })
+        .catch(e => console.log(e))
+  },[])
+
   return (
 
     <div>
@@ -106,7 +119,7 @@ export default function Weather() {
       <TempBox>
         <Sunny>☀</Sunny>
         <Temperature>10<span style={{color: "#181818"}}>˚</span></Temperature>
-        <Info><InfoSub pos="left">최고기온/최저기온</InfoSub><InfoSub pos="right">12˚C / 10˚C</InfoSub></Info>
+        <Info><InfoSub pos="left">최고기온/최저기온</InfoSub><InfoSub pos="right">{maxT}˚C / {minT}˚C</InfoSub></Info>
         <Info><InfoSub pos="left">현재기온/체감온도</InfoSub><InfoSub pos="right">{state}˚C / {temp}˚C</InfoSub></Info>
       </TempBox>
     </div>
