@@ -80,6 +80,7 @@ export default function Weather() {
     color: #000000;
   `
   const [ state , setState ] = useState('');
+  const [temp, setTemp] = useState('');
 
 
   useEffect(()=>{
@@ -87,8 +88,11 @@ export default function Weather() {
         .then(res =>{
             const items = res.response.body.items.item
             const currentTemperature = items.filter(item => item.category === 'T1H')[0].obsrValue
+            const currentWindSpeed = items.filter(item => item.category === 'WSD')[0].obsrValue
+            const currentTemp = Math.round(13.12+0.6215*currentTemperature-11.37*currentWindSpeed*0.16+0.3965*currentWindSpeed*0.16*currentTemperature)
             setState(currentTemperature)
-            console.log(currentTemperature)
+            setTemp(currentTemp)
+
         })
         .catch(e => console.log(e))
 },[])
@@ -102,8 +106,8 @@ export default function Weather() {
       <TempBox>
         <Sunny>☀</Sunny>
         <Temperature>10<span style={{color: "#181818"}}>˚</span></Temperature>
-        <Info><InfoSub pos="left">최고기온/최저기온</InfoSub><InfoSub pos="right">13˚C / 10˚C</InfoSub></Info>
-        <Info><InfoSub pos="left">{state}</InfoSub><InfoSub pos="right">7˚C</InfoSub></Info>
+        <Info><InfoSub pos="left">최고기온/최저기온</InfoSub><InfoSub pos="right">12˚C / 10˚C</InfoSub></Info>
+        <Info><InfoSub pos="left">현재기온/체감온도</InfoSub><InfoSub pos="right">{state}˚C / {temp}˚C</InfoSub></Info>
       </TempBox>
     </div>
   )
