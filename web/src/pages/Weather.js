@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import React, { useState, useEffect} from "react";
-import { getUltraSrtNcst , getVilageFcst } from "./api/Weather";
+import { getUltraSrtNcst , getVilageFcst } from "../api/Weather";
 
 export default function Weather() {
   
@@ -96,14 +96,14 @@ export default function Weather() {
         })
         .catch(e => console.log(e))
 
-        getVilageFcst()
+    getVilageFcst()
       .then(res =>{
           const items = res.response.body.items.item
           const maxTemp = items.filter(item => item.category === 'TMX')[0].fcstValue
           const minTemp = items.filter(item => item.category === 'TMN')[0].fcstValue
           setMaxT(maxTemp)
           setMinT(minTemp)
-          
+          console.log(items.filter(item => item.category === 'TMX'))
         })
         .catch(e => console.log(e))
 },[])

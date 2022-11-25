@@ -1,7 +1,7 @@
 import MakeList from "./MakeList"
 import { Route, Routes } from 'react-router-dom';
-import TodoList from "./TodoList";
-import Weather from "./Weather";
+import TodoList from "./pages/TodoList";
+import Weather from "./pages/Weather";
 import DateFormat from "./utils/DateFormat"
 
 function App() {
