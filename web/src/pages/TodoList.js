@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React, { useState} from "react";
+import React, { Fragment, useState} from "react";
 import {v4 as uuid} from 'uuid'
 
 const TodoLists = [
@@ -28,6 +28,7 @@ const Title = styled.h1`
 const TodoInput = styled.input`
   width: 90%;
   font-size: 16px;
+  font-family: 'Lato';
   font-weight: 500;
   background-color: #eee;
   border: 0;
@@ -122,9 +123,9 @@ export default function TodoList() {
                     <Todo key={element.id}>
                         <InputBtn type='checkbox' checked={element.complete} onChange={(e)=> handleTodoChecked(e, element.id)
                         }/> 
-                        <div style={{textDecoration: element.complete? "line-through" : null}}>
+                        <Fragment style={{textDecoration: element.complete? "line-through" : null}}>
                         {element.todo}
-                        </div>
+                        </Fragment>
                         <ModifyBtn>🖊</ModifyBtn>
                         <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
                     </Todo>

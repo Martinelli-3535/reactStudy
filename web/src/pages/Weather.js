@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { getUltraSrtNcst , getVilageFcst } from "../api/Weather";
 
 export default function Weather() {
@@ -89,28 +89,27 @@ export default function Weather() {
             const items = res.response.body.items.item
             const currentTemperature = items.filter(item => item.category === 'T1H')[0].obsrValue
             const currentWindSpeed = items.filter(item => item.category === 'WSD')[0].obsrValue
-            const currentTemp = Math.round(13.12+0.6215*currentTemperature-11.37*currentWindSpeed*0.16+0.3965*currentWindSpeed*0.16*currentTemperature)
+            const currentTemp = Math.round(13.12+0.6215*currentTemperature-11.37*currentWindSpeed^0.16+0.3965*currentWindSpeed*0.16*currentTemperature)
             setState(currentTemperature)
             setTemp(currentTemp)
-
         })
         .catch(e => console.log(e))
+},[])
 
+  useEffect(() => {
     getVilageFcst()
       .then(res =>{
           const items = res.response.body.items.item
           const maxTemp = items.filter(item => item.category === 'TMX')[0].fcstValue
           const minTemp = items.filter(item => item.category === 'TMN')[0].fcstValue
           setMaxT(maxTemp)
-          setMinT(minTemp)
-          console.log(items.filter(item => item.category === 'TMX'))
+          setMinT(minTemp)         
         })
         .catch(e => console.log(e))
-},[])
+  },[])
 
 
   return (
-
     <div>
       <Title>Weather</Title>
       <Songdo>송도동</Songdo>
