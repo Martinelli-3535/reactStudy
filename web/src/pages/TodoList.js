@@ -109,8 +109,6 @@ export default function TodoList() {
         setTodos(todos.map(item => item.id === id ? {...item, complete: !item.complete} :item ))
     }
 
-    
-
     return (
         <div>
             <Title>Todo List</Title>
