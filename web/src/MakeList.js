@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
-import {Outlet} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const ListBox = styled.div`
   padding-top: 8em;
   text-align: center;
   width: 18vw;
   height: 100vh;
-`
+`;
 const List = styled.div`
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -18,17 +18,18 @@ const List = styled.div`
   margin: 0px 23px 17px;
   color: #525252;
 
-  ${props => props.isSelected && `
+  ${(props) =>
+    props.isSelected &&
+    `
   color: #EA5959;
-  `
-  }
-`
+  `}
+`;
 const ContentBox = styled.div`
   width: 100%;
   padding: 2em;
   height: 637px;
-  border-left: 1px solid #D8D8D8;
-`
+  border-left: 1px solid #d8d8d8;
+`;
 
 const Border = styled.div`
   position: absolute;
@@ -37,29 +38,28 @@ const Border = styled.div`
   left: 228px;
   top: 161px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-`
+`;
 
 export default function MakeList() {
-
-    const menuList = [
-        {text: 'Todo List', url: '/todolist'},
-        {text: 'Weather', url: '/weather'}
-    ]
-    return (
-        <Border style={{display: "flex"}}>
-            <ListBox>
-                {menuList.map((item)=>(
-                    <Link to={item.url} key={item.url}>
-                        <List>{item.text}</List>
-                    </Link>
-                ))}
-            </ListBox>
-            <ContentBox>
-                <Outlet/>
-            </ContentBox>
-        </Border>
-    );
+  const menuList = [
+    { text: "Todo List", url: "/todolist" },
+    { text: "Weather", url: "/weather" },
+  ];
+  return (
+    <Border style={{ display: "flex" }}>
+      <ListBox>
+        {menuList.map((item) => (
+          <Link to={item.url} key={item.url}>
+            <List>{item.text}</List>
+          </Link>
+        ))}
+      </ListBox>
+      <ContentBox>
+        <Outlet />
+      </ContentBox>
+    </Border>
+  );
 }

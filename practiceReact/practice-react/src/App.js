@@ -1,13 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import Say from "./Say";
 
-function App() {
-  return (
-    <div className="App">
-      <a>hello~ </a>
-      <span>this is my practice project!</span>
-    </div>
-  );
-}
+const App = () => {
+  return <Say />;
+};
 
 export default App;
