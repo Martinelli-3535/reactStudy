@@ -11,6 +11,7 @@ const EventPractice = () => {
     setMessage("");
   };
   const onKeyPress = (e) => {
+    console.log(e.target.name);
     if (e.key === "Enter") {
       onClick();
     }

@@ -11,7 +11,7 @@ const MyComponent = ({ name, children }) => {
 
 MyComponent.defaultProps = {
   name: "default name",
-  children: "mokuren",
+  children: "moren",
 };
 
 export default MyComponent;
