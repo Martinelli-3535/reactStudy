@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
-import { getUltraSrtNcst, getVilageFcst } from "../api/Weather";
 import { useWeatherStore } from "../store/weatherStore";
 
 export default function Weather() {
-  const { weatherInfo, setWeatherInfo } = useWeatherStore();
+  const { weatherInfo } = useWeatherStore();
   const { nowTemp, highTemp, rowTemp, feelTemp } = weatherInfo;
 
   const City = styled.div`
@@ -81,38 +79,6 @@ export default function Weather() {
     line-height: 37px;
     color: #000000;
   `;
-
-  useEffect(() => {
-    getUltraSrtNcst()
-      .then((res) => {
-        const items = res.response.body.items.item;
-        const currentTemperature = items.filter(
-          (item) => item.category === "T1H"
-        )[0].obsrValue;
-        const currentWindSpeed = items.filter(
-          (item) => item.category === "WSD"
-        )[0].obsrValue;
-        const feelTemperature = Math.round(
-          (13.12 + 0.6215 * currentTemperature - 11.37 * currentWindSpeed) ^
-            (0.16 + 0.3965 * currentWindSpeed * 0.16 * currentTemperature)
-        );
-        setWeatherInfo("nowTemp", currentTemperature);
-        setWeatherInfo("feelTemp", feelTemperature);
-      })
-      .catch((e) => console.log(e));
-
-    getVilageFcst()
-      .then((res) => {
-        const items = res.response.body.items.item;
-        const maxTemp = items.filter((item) => item.category === "TMX")[0]
-          .fcstValue;
-        const minTemp = items.filter((item) => item.category === "TMN")[0]
-          .fcstValue;
-        setWeatherInfo("rowTemp", minTemp);
-        setWeatherInfo("highTemp", maxTemp);
-      })
-      .catch((e) => console.log(e));
-  }, []);
 
   return (
     <div>
