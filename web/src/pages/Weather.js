@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { getUltraSrtNcst, getVilageFcst } from "../api/Weather";
+import { useWeatherStore } from "../store/weatherStore";
 
 export default function Weather() {
+  const { weatherInfo, setWeatherInfo } = useWeatherStore();
+  const { nowTemp, highTemp, rowTemp, feelTemp } = weatherInfo;
+
   const City = styled.div`
     font-family: "Inter";
     font-style: normal;
@@ -77,10 +81,6 @@ export default function Weather() {
     line-height: 37px;
     color: #000000;
   `;
-  const [state, setState] = useState("");
-  const [temp, setTemp] = useState("");
-  const [maxT, setMaxT] = useState("");
-  const [minT, setMinT] = useState("");
 
   useEffect(() => {
     getUltraSrtNcst()
@@ -92,17 +92,15 @@ export default function Weather() {
         const currentWindSpeed = items.filter(
           (item) => item.category === "WSD"
         )[0].obsrValue;
-        const currentTemp = Math.round(
+        const feelTemperature = Math.round(
           (13.12 + 0.6215 * currentTemperature - 11.37 * currentWindSpeed) ^
             (0.16 + 0.3965 * currentWindSpeed * 0.16 * currentTemperature)
         );
-        setState(currentTemperature);
-        setTemp(currentTemp);
+        setWeatherInfo("nowTemp", currentTemperature);
+        setWeatherInfo("feelTemp", feelTemperature);
       })
       .catch((e) => console.log(e));
-  }, []);
 
-  useEffect(() => {
     getVilageFcst()
       .then((res) => {
         const items = res.response.body.items.item;
@@ -110,8 +108,8 @@ export default function Weather() {
           .fcstValue;
         const minTemp = items.filter((item) => item.category === "TMN")[0]
           .fcstValue;
-        setMaxT(maxTemp);
-        setMinT(minTemp);
+        setWeatherInfo("rowTemp", minTemp);
+        setWeatherInfo("highTemp", maxTemp);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -129,13 +127,13 @@ export default function Weather() {
         <Info>
           <InfoSub pos="left">최고기온/최저기온</InfoSub>
           <InfoSub pos="right">
-            {maxT}˚C / {minT}˚C
+            {highTemp}˚C / {rowTemp}˚C
           </InfoSub>
         </Info>
         <Info>
           <InfoSub pos="left">현재기온/체감온도</InfoSub>
           <InfoSub pos="right">
-            {state}˚C / {temp}˚C
+            {nowTemp}˚C / {feelTemp}˚C
           </InfoSub>
         </Info>
       </TempBox>
