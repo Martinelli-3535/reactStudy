@@ -1,7 +1,8 @@
-import MakeList from "./MakeList";
-import { Route, Routes } from "react-router-dom";
-import TodoList from "./pages/TodoList";
-import Weather from "./pages/Weather";
+import MakeList from './MakeList';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import TodoList from './pages/TodoList';
+import Weather from './pages/Weather';
 
 function App() {
   return (

@@ -1,19 +1,19 @@
-import styled from "styled-components"
-import React, { Fragment, useState} from "react";
-import {v4 as uuid} from 'uuid'
+import styled from 'styled-components';
+import React, { Fragment, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 const TodoLists = [
-    {
-        id: uuid(),
-        todo: '운동하기',
-        complete: false
-    },
-    {
-        id: uuid(),
-        todo: '포켓몬 하기',
-        complete: false
-    }
-]
+  {
+    id: uuid(),
+    todo: '운동하기',
+    complete: false,
+  },
+  {
+    id: uuid(),
+    todo: '포켓몬 하기',
+    complete: false,
+  },
+];
 
 const Title = styled.h1`
   font-family: 'Lato';
@@ -23,7 +23,7 @@ const Title = styled.h1`
   line-height: 37px;
   margin: 10px 0 30px 0;
   color: #000000;
-`
+`;
 
 const TodoInput = styled.input`
   width: 90%;
@@ -32,7 +32,7 @@ const TodoInput = styled.input`
   font-weight: 500;
   background-color: #eee;
   border: 0;
-  border-radius: .5em;
+  border-radius: 0.5em;
   box-sizing: border-box;
   padding: 1em;
 `;
@@ -48,7 +48,7 @@ const Todo = styled.ul`
 const InputBtn = styled.input`
   appearance: none;
   margin-right: 0.5em;
-  border: 1px solid #EA5959;
+  border: 1px solid #ea5959;
   border-radius: 8px;
   width: 20px;
   height: 19px;
@@ -58,77 +58,86 @@ const InputBtn = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: #EA5959;
+    background-color: #ea5959;
   }
-`
+`;
 
 const DeleteBtn = styled.button`
-    position: absolute;
-    right: 5.5em;
-    color: #e66;
-    font-size: 20px;
-    font-family: "Material Icons";
-    border : none;
-    background-color:#FFFFFF;
-`
+  position: absolute;
+  right: 5.5em;
+  color: #e66;
+  font-size: 20px;
+  font-family: 'Material Icons';
+  border: none;
+  background-color: #ffffff;
+`;
 
 const ModifyBtn = styled.button`
-    position: absolute;
-    right: 7em;
-    color: #e66;
-    font-size: 20px;
-    font-family: "Material Icons";
-    border : none;
-    background-color:#FFFFFF;
-`
+  position: absolute;
+  right: 7em;
+  color: #e66;
+  font-size: 20px;
+  font-family: 'Material Icons';
+  border: none;
+  background-color: #ffffff;
+`;
 
 export default function TodoList() {
+  const [todos, setTodos] = useState(TodoLists);
 
-    const [todos, setTodos] = useState(TodoLists);
+  const handleSubmit = (newTodo) => {
+    const todo = {
+      id: uuid(),
+      todo: newTodo,
+      complete: false,
+    };
+    setTodos((prevState) => [...prevState, todo]);
+  };
 
-    const handleSubmit = (newTodo) => {
-        const todo = {
-            id: uuid(),
-            todo: newTodo,
-            complete: false
-        }
-        setTodos((prevState) => [...prevState, todo])
-    }
+  const deleteTodo = (id) => {
+    setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
+  };
 
-    const deleteTodo = (id) => {
-        setTodos((prevState) => prevState.filter(todo => todo.id !== id))
-    }
+  const addNewTodo = (e, newTodo) => {
+    e.preventDefault();
+    handleSubmit(newTodo);
+    e.target[0].value = '';
+  };
 
-    const addNewTodo = (e, newTodo) => {
-        e.preventDefault()
-        handleSubmit(newTodo)
-        e.target[0].value = ''
-    }
-
-    const handleTodoChecked = (e, id)=>{
-        setTodos(todos.map(item => item.id === id ? {...item, complete: !item.complete} :item ))
-    }
-
-    return (
-        <div>
-            <Title>Todo List</Title>
-            <form onSubmit={(e) =>
-                addNewTodo(e, e.target[0].value)}>
-                <TodoInput placeholder="할 일을 적어주세요."/>
-            </form>
-            <div>
-                {todos.map((element) =>
-                    <Todo key={element.id}>
-                        <InputBtn type='checkbox' checked={element.complete} onChange={(e)=> handleTodoChecked(e, element.id)
-                        }/> 
-                        <Fragment style={{textDecoration: element.complete? "line-through" : null}}>
-                        {element.todo}
-                        </Fragment>
-                        <ModifyBtn>🖊</ModifyBtn>
-                        <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
-                    </Todo>
-                )}
-            </div>
-        </div>
+  const handleTodoChecked = (e, id) => {
+    setTodos(
+      todos.map((item) =>
+        item.id === id ? { ...item, complete: !item.complete } : item,
+      ),
     );
+  };
+
+  return (
+    <div>
+      <Title>Todo List</Title>
+      <form onSubmit={(e) => addNewTodo(e, e.target[0].value)}>
+        <TodoInput placeholder="할 일을 적어주세요." />
+      </form>
+      <div>
+        {todos.map((element) => (
+          <Todo key={element.id}>
+            <InputBtn
+              type="checkbox"
+              checked={element.complete}
+              onChange={(e) => handleTodoChecked(e, element.id)}
+            />
+            <Fragment
+              style={{
+                textDecoration: element.complete ? 'line-through' : null,
+              }}
+            >
+              {element.todo}
+            </Fragment>
+            <ModifyBtn>🖊</ModifyBtn>
+            <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
+          </Todo>
+        ))}
+      </div>
+    </div>
+  );
 }
