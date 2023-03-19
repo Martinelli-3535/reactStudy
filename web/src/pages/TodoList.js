@@ -133,7 +133,7 @@ export default function TodoList() {
             >
               {element.todo}
             </Fragment>
-            <ModifyBtn>🖊</ModifyBtn>
+            <ModifyBtn isSpecial={true}>🖊</ModifyBtn>
             <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
           </Todo>
         ))}

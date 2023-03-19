@@ -1,0 +1,11 @@
+{
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx" 
+    },
+    "emmet.includeLanguages": {
+       "javascript": "html"
+   },
+   "compilerOptions" : {
+    "target": "es6"
+   }
+}
