@@ -27,7 +27,7 @@ const TodoItemBlock = styled.div`
   }
 `;
 
-const CheckCircle = styled.button`
+const CheckCircle = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 16px;
@@ -58,9 +58,14 @@ const Text = styled.div`
 `;
 
 function TodoListItem({ id, done, text }) {
+
+  const onClick = (props) => {
+    props.done = !done;
+  }
+
   return (
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle onClick={onClick} done={done}>{done && <MdDone />}</CheckCircle>
       <Text done={done}>{text}</Text>
       <Remove>
         <MdDelete />

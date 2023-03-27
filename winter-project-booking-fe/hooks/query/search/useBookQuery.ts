@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { getAsync } from '@api/index'
+
+import { getAsync } from '@/api/index'
 
 interface FetchBookListType {
   type: 'publisher' | 'title' | 'type' | 'author'
@@ -31,7 +32,7 @@ export const useBook = ({ type, value }: FetchBookListType) => {
     () =>
       getAsync<[]>(`/books`, {
         params: {
-          [type] : value,
+          [type]: value,
         },
       }),
     {
@@ -40,7 +41,7 @@ export const useBook = ({ type, value }: FetchBookListType) => {
   )
 }
 
-export const useBookIdQuery = ({ id } : FetchBookListType) => {
+export const useBookIdQuery = ({ id }: FetchBookListType) => {
   return useQuery(
     ['book', 'id', id],
     () => getAsync<BookIdType>(`/books/${id}`),

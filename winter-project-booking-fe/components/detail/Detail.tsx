@@ -43,7 +43,7 @@ const Detail = () => {
         >
           arrow_back_ios
         </BackIcon>
-        <SubjectTitle>{`${data?.subjectName} / ${data?.professorName}`}</SubjectTitle>
+        <SubjectTitle>{`${data?.subjectName} / ${data?.professorName}`}</SubjectTitle>  
       </TopIcon>
       <Item>
         <Subject>{data?.subjectName}</Subject>
