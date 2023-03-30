@@ -57,21 +57,23 @@ const Text = styled.div`
     `}
 `;
 
-function TodoListItem({ id, done, text }) {
-
-  const onClick = (props) => {
-    props.done = !done;
-  }
+function TodoListItem({todos, onRemove, onToggle}) {
+  const {id , text ,done} = todos;
 
   return (
-    <TodoItemBlock>
-      <CheckCircle onClick={onClick} done={done}>{done && <MdDone />}</CheckCircle>
-      <Text done={done}>{text}</Text>
-      <Remove>
-        <MdDelete />
-      </Remove>
-    </TodoItemBlock>
+      <>
+        {todos.map(todo => (
+          <TodoItemBlock>
+            <CheckCircle done={todo.done} onClick={() => onToggle(todo.id)}>{todo.done && <MdDone />}</CheckCircle>
+              <Text done={todo.done}>{todo.text}</Text>
+              <Remove onClick={() => onRemove(todo.id)}>
+                <MdDelete />
+              </Remove>
+          </TodoItemBlock>
+        ))}
+      </>
   );
 }
 
 export default TodoListItem;
+

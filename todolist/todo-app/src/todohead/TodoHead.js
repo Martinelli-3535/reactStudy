@@ -1,4 +1,5 @@
 import {React, useState} from 'react';
+import Days from 'react-calendar/dist/cjs/MonthView/Days';
 import styled from 'styled-components';
 
 const TodoHeadBlock = styled.div`
@@ -25,8 +26,10 @@ const TodoHeadBlock = styled.div`
   }
 `;
 
-function TodoHead() {
+function TodoHead(props) {
   const [timer, setTimer] = useState('0');
+  const [day, setDay] = useState('0');
+  const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
   const currentTimer = () => {
     const date = new Date();
@@ -36,8 +39,11 @@ function TodoHead() {
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
+
     setTimer (`${years}년 ${months}월 ${days}일 ${hours}:${minutes}:${seconds}`);
+    setDay(String(week[date.getDay()]));
   }
+
 
   const startTimer = () => {
     setInterval(currentTimer, 1000);
@@ -48,8 +54,8 @@ function TodoHead() {
   return (
     <TodoHeadBlock>
       <h1>{timer}</h1>
-      <div className="day">월요일</div>
-      <div className="tasks-left">할 일 2개 남음</div>
+      <div className="day">{day}</div>
+      <div className="tasks-left">할 일 {props.todoCnt}개 남음</div>
     </TodoHeadBlock>
   );
 }

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { BsTrash3 } from "react-icons/bs";
 
 const TodoLists = [
   {
@@ -37,15 +38,7 @@ const TodoInput = styled.input`
   padding: 1em;
 `;
 
-const Todo = styled.ul`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  color: #555;
-  padding: 0;
-`;
-
-const InputBtn = styled.input`
+const InputBox = styled.input`
   appearance: none;
   margin-right: 0.5em;
   border: 1px solid #ea5959;
@@ -70,6 +63,13 @@ const DeleteBtn = styled.button`
   font-family: 'Material Icons';
   border: none;
   background-color: #ffffff;
+  transition: ease-in-out 0.2s;
+  
+  &:hover {
+    color: grey;
+  }
+
+  display: none;
 `;
 
 const ModifyBtn = styled.button`
@@ -80,7 +80,31 @@ const ModifyBtn = styled.button`
   font-family: 'Material Icons';
   border: none;
   background-color: #ffffff;
+  
+  display: none;
 `;
+
+const Todo = styled.ul`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #555;
+  padding: 0;
+
+  &:hover {
+    ${DeleteBtn} {
+      display: initial;
+    }
+  }
+`;
+
+const TodoBox = styled.div`
+  transition: ease-in 0.2s;
+
+  &:hover {
+    color: grey;
+  }
+`
 
 export default function TodoList() {
   const [todos, setTodos] = useState(TodoLists);
@@ -121,20 +145,22 @@ export default function TodoList() {
       <div>
         {todos.map((element) => (
           <Todo key={element.id}>
-            <InputBtn
+            <InputBox
               type="checkbox"
               checked={element.complete}
               onChange={(e) => handleTodoChecked(e, element.id)}
             />
-            <Fragment
+            <TodoBox
               style={{
-                textDecoration: element.complete ? 'line-through' : null,
+                textDecoration: element.complete && 'line-through',
               }}
             >
               {element.todo}
-            </Fragment>
+            </TodoBox>
             <ModifyBtn isSpecial={true}>🖊</ModifyBtn>
-            <DeleteBtn onClick={() => deleteTodo(element.id)}>🗑</DeleteBtn>
+            <DeleteBtn onClick={() => deleteTodo(element.id)}>
+              <BsTrash3 />
+            </DeleteBtn>
           </Todo>
         ))}
       </div>
