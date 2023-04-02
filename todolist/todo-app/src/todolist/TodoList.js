@@ -36,8 +36,6 @@ function TodoList() {
     }
   ]);
 
-  const todoCnt = todos.length;
-
   const nextId = useRef(5);
 
   const onInsert = useCallback(
@@ -47,30 +45,30 @@ function TodoList() {
         text,
         done : false 
       };
-      setTodos(todos.concat(todo));
+      setTodos(todos => todos.concat(todo));
       nextId.current++;
     },
-    [todos]
+    []
   );
 
   const onRemove = useCallback(id => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  },[todos]);
+    setTodos(todos => todos.filter(todo => todo.id !== id));
+  },[]);
 
   const onToggle = useCallback ( id => {
     setTodos(
-      todos.map(todo => 
+      todos => todos.map(todo => 
         todo.id === id ? {...todo, done: !todo.done} : todo)
     )
-  },[todos]);
+  },[]);
 
 
   return (  
     <TodoTemplate>
-      <TodoHead todoCnt = {todoCnt}/>
+      <TodoHead todos = {todos} />
       <TodoInsert onInsert={onInsert} />
       <TodoListBlock>
-        <TodoListItem todos={todos} onRemove={onRemove} onToggle = {onToggle}/>
+        <TodoListItem todos={todos} onRemove={onRemove} onToggle={onToggle} />
       </TodoListBlock> 
     </TodoTemplate>
   );

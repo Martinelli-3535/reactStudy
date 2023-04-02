@@ -58,8 +58,6 @@ const Text = styled.div`
 `;
 
 function TodoListItem({todos, onRemove, onToggle}) {
-  const {id , text ,done} = todos;
-
   return (
       <>
         {todos.map(todo => (
@@ -75,5 +73,5 @@ function TodoListItem({todos, onRemove, onToggle}) {
   );
 }
 
-export default TodoListItem;
+export default React.memo(TodoListItem);
 

@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 const Insertinput = styled.input`
-    width: 250px;
+    width: 300px;
     height: 30px;
     margin-left: 35px;
     border: 1px solid #ced4da;
@@ -25,6 +25,9 @@ const SubmitBtn = styled.button`
     border: none;
     background: white;
     height: 35px;
+    color: #38d9a9;
+
+    transition: ease-in-out 0.2s;
 
     &:hover {
         color: grey;
@@ -50,7 +53,7 @@ const TodoInsert = ({ onInsert }) => {
             value = {value}
             onChange={onChange}/>
             <SubmitBtn type='submit'>
-                <IoIosAddCircle size="33" color="#38d9a9"/>
+                <IoIosAddCircle size="33"/>
             </SubmitBtn>
         </InsertForm>
     )
