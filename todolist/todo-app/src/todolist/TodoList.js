@@ -1,4 +1,4 @@
-import {React, useState, useRef, useCallback} from 'react';
+import {React, useState, useRef, useCallback, useReducer} from 'react';
 import styled from 'styled-components';
 import TodoListItem from '../todolistitem/TodoListItem';
 import TodoHead from '../todohead/TodoHead';
@@ -12,7 +12,26 @@ const TodoListBlock = styled.div`
   overflow-y: auto;
 `;
 
+function todoReducer(todos, action) {
+  switch(action.type) {
+    case 'INSERT': 
+      return todos.concat(action.todo);
+
+    case 'REMOVE':
+      return todos.filter(todo => todo.id !== action.id)
+
+    case 'TOGGLE':
+      return todos.map(todo =>
+        todo.id === action.id ? {...todo, done: !todo.done} : todo);
+
+    default:
+      return todos;
+    }
+}
+
+
 function TodoList() {
+  const [todo, dispatch] = useReducer(todoReducer, todos)
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -36,9 +55,10 @@ function TodoList() {
     }
   ]);
 
+
   const nextId = useRef(5);
 
-  const onInsert = useCallback(
+  /* const onInsert = useCallback(
     text => {
       const todo = {
         id : nextId.current,
@@ -49,17 +69,35 @@ function TodoList() {
       nextId.current++;
     },
     []
-  );
+  ); */
 
-  const onRemove = useCallback(id => {
-    setTodos(todos => todos.filter(todo => todo.id !== id));
+  const onInsert = useCallback(text => {
+    const todo = {
+      id : nextId.current,
+      text,
+      checked: false
+    }
+    dispatch({type: 'INSERT', todo});
+    nextId.current++;
   },[]);
 
-  const onToggle = useCallback ( id => {
+/*   const onRemove = useCallback(id => {
+    setTodos(todos => todos.filter(todo => todo.id !== id));
+  },[]); */
+
+  const onRemove = useCallback(id => {
+    dispatch({type: 'REMOVE', id})
+  },[]); 
+
+  /* const onToggle = useCallback ( id => {
     setTodos(
       todos => todos.map(todo => 
         todo.id === id ? {...todo, done: !todo.done} : todo)
     )
+  },[]); */
+
+  const onToggle = useCallback ( id => {
+    dispatch({type: 'TOGGLE', id});
   },[]);
 
 
