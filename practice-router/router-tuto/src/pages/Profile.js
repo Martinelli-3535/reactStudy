@@ -9,7 +9,7 @@ const data = {
         name: '홍길동',
         description: '고전 소설 홍길동전의 주인공'
      }
-}
+};
 
 const Profile = () => {
       const params = useParams();
