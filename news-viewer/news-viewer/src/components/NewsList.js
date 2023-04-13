@@ -20,7 +20,7 @@ const NewsList = ({ category }) => {
     const [loading, response, error] = usePromise(() => {
         const query = category === 'all' ? '' : `&category=${category}`;
         return axios.get(
-            `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=976f11a2579c4a718d5090c3eec8d6db`
+            `https://newsapi.org/v2/top-headlines?country=us${query}&apiKey=976f11a2579c4a718d5090c3eec8d6db`
         )
     },[category]);
 
@@ -39,12 +39,12 @@ const NewsList = ({ category }) => {
 
 
     const { articles } = response.data;
-    return (
-        <NewsListBlock>
+    return (   
+            <NewsListBlock>
             {articles.map(article => (
                 <NewsItem key = {article.url} article = {article}/>
             ))}
-        </NewsListBlock>
+            </NewsListBlock>
     )
 };
 

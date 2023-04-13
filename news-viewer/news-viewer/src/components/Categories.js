@@ -69,19 +69,31 @@ const Category = styled(NavLink)`
     }
 `
 
-const Categories = ({ onSelect, category }) => {
+const NewsTop = styled.h2`
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #333333;
+    margin-left : 60px;
+`
+
+const Categories = () => {
     return (
-        <CategoriesBlock>
-            {categories.map(c => (
-                <Category 
-                key={c.name}
-                className = {({ isActive }) => (isActive ? 'active' : undefined)}
-                to={c.name === 'all' ? '/' : `/${c.name}`}
-                >
-                {c.text}
-                </Category>
-            ))}
-        </CategoriesBlock>
+        <>
+            <NewsTop>
+                Hong's News
+            </NewsTop>
+            <hr />
+            <CategoriesBlock>
+                {categories.map(c => (
+                    <Category 
+                    key={c.name}
+                    className = {({ isActive }) => (isActive ? 'active' : undefined)}
+                    to={c.name === 'all' ? '/' : `/${c.name}`}
+                    >
+                    {c.text}
+                    </Category>
+                ))}
+            </CategoriesBlock>
+        </>
     )
 }
 
