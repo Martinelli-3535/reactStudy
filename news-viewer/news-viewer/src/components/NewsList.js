@@ -14,6 +14,11 @@ const NewsListBlock  = styled.div`
     padding-left: 1rem;
     padding-right: 1rem;
  }
+
+ & + & {
+    
+ }
+
 `;
 
 const NewsList = ({ category }) => {
