@@ -35,7 +35,7 @@ const Todos = ({
                 <button type="submit">등록</button>
             </form>
             <div>
-            {todos.map(todo => (
+                {todos.map(todo => (
                     <TodoItem 
                         todo = {todo}
                         key={todo.id}

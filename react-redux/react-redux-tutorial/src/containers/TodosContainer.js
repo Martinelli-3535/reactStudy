@@ -10,7 +10,7 @@ const TodosContainer = ({
     toggle,
     remove,
 }) => {
-    remove (
+    return (
         <Todos 
             input={input}
             todos={todos}
