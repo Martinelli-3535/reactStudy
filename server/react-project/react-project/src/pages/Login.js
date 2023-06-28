@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 const Login = () => {
     const [id, setId] = useState('');
     const [passwd, setPasswd] = useState(''); 
+    const [testbody, setTestbody] = useState('');
 
     const submitId = ()=>{
         const post ={
-          plzid : id
+          test: testbody
         };
        
         fetch("http://localhost:3001/idplz", {
@@ -21,8 +22,7 @@ const Login = () => {
         })
         .then((res) => res.json())
         .then((json) => {
-            setPasswd(json.text)
-            console.log(passwd)
+            setTestbody(json.text)
         });
       };
 

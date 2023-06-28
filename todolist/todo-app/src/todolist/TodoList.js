@@ -22,7 +22,7 @@ function todoReducer(todos, action) {
 
     case 'TOGGLE':
       return todos.map(todo =>
-        todo.id === action.id ? {...todo, done: !todo.done} : todo);
+        todo.id === action.id ? {...todo, done: !todo.done } : todo);
 
     default:
       return todos;
@@ -31,7 +31,6 @@ function todoReducer(todos, action) {
 
 
 function TodoList() {
-  const [todo, dispatch] = useReducer(todoReducer, todos)
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -54,6 +53,8 @@ function TodoList() {
       done: false
     }
   ]);
+  const [todo, dispatch] = useReducer(todoReducer, todos)
+
 
 
   const nextId = useRef(5);
@@ -106,7 +107,7 @@ function TodoList() {
       <TodoHead todos = {todos} />
       <TodoInsert onInsert={onInsert} />
       <TodoListBlock>
-        <TodoListItem todos={todos} onRemove={onRemove} onToggle={onToggle} />
+        <TodoListItem todos={todo} onRemove={onRemove} onToggle={onToggle} />
       </TodoListBlock> 
     </TodoTemplate>
   );
