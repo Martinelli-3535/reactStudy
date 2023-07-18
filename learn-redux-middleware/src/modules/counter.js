@@ -6,16 +6,14 @@ const DECREASE = 'counter/DECREASE';
 export const increase = createAction(INCREASE);
 export const decrease = createAction(DECREASE);
 
-const initialstate = {
-    number : 0
-};
+const initialState = 0;
 
 const counter = handleActions(
     {
-        [INCREASE]: (state, action) => ({number: state.number + 1}),
-        [DECREASE]: (state, action) => ({number: state.number - 1}),
+        [INCREASE]: state => state + 1,
+        [DECREASE]: state => state - 1
     },
-    initialstate
-    );
+    initialState
+);
 
 export default counter;

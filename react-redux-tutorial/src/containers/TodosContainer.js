@@ -20,7 +20,7 @@ const TodosContainer = ({
             onRemove={remove}
         />
     )
-};
+}
 
 export default connect(
     ({ todos }) => ({
