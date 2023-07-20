@@ -9,5 +9,11 @@ const CounterContainer = ({number, increase, decrease}) => {
 };
 
 export default connect(
-    state => 
-)
+    state => ({
+        number: state.counter
+    }),
+    {
+        increase,
+        decrease
+    }
+)(CounterContainer);
