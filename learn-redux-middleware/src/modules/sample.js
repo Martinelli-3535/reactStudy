@@ -68,8 +68,42 @@ const sample = handleActions(
         [GET_POST_SUCCESS]: (state, action) => ({
             ...state,
             loading: {
-                ...state.
+                ...state.loading,
+                GET_POST: false //요청 완료
+            },
+            post: action.payload
+        }),
+        [GET_POST_FAILURE]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                GET_POST: false //요청 완료
+            }
+        }),
+        [GET_USERS]: state => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                GET_USERS: true //** 요청 시작 */
+            }
+        }),
+        [GET_USERS_SUCCESS]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                GET_USERS: false // 요청 완료
+            },
+            users: action.payload
+        }),
+        [GET_USERS_FAILURE]: (state, action) => ({
+            ...state,
+            loading: {
+                ...state.loading,
+                GET_USERS: false
             }
         })
-    }
-)
+    },
+    initialState
+);
+
+export default sample;
