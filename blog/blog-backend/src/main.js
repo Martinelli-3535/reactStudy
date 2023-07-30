@@ -5,6 +5,7 @@ const bodyParser = require('koa-bodyparser');
 const mongoose = require('mongoose');
 
 import api from './api';
+import createFakeData from './createFakeData';
 
 const { PORT, MONGO_URI } = process.env;
 
@@ -12,6 +13,7 @@ mongoose
 .connect(MONGO_URI)
     .then(() => {
         console.log('Connected to MongoDB');
+        createFakeData();
     })
     .catch(e => {
         console.log(e);
