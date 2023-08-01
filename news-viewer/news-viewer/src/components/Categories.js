@@ -79,7 +79,7 @@ const Categories = () => {
     return (
         <>
             <NewsTop>
-                Hong's News
+                Hong's Patch
             </NewsTop>
             <hr />
             <CategoriesBlock>

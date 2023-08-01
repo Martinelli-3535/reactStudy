@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import styled from 'styled-components';
 
 const TodoHeadBlock = styled.div`
@@ -43,7 +43,7 @@ function TodoHead(props) {
     setDay(String(week[date.getDay()]));
   }
 
-  const todoLeft = props.todos.filter(todo => todo.done === false)
+  const todoLeft = useEffect()
   const tLength = todoLeft.length;
 
 
