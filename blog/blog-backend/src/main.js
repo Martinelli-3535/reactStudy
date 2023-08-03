@@ -22,7 +22,7 @@ mongoose
 const app = new Koa();
 const router = new Router();
 
-router.use('/api', api.routes()); /** api 라우트 적용 */
+router.use('/api', api.routes()); /* api 라우트 적용 */
 
 app.use(bodyParser());
 app.use(jwtMiddleware);

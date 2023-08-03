@@ -15,6 +15,7 @@ UserSchema.methods.setPassword = async function(password) {
 UserSchema.methods.checkPassword = async function(password) {
     const result = await bcrypt.compare(password, this.hashedPassword);
     return result; // true / false
+
 }
 
 UserSchema.statics.findByUsername = function(username) {
