@@ -8,4 +8,4 @@ const PostListPage = () => {
     )
 }
 
-export default PostListPage; 
+export default PostListPage;
